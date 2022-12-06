@@ -17,7 +17,7 @@ pub struct Project {
 }
 
 // load project by id
-pub async fn load_project_by_id(project_id: &str) -> Option<Project> {
+pub async fn load_project_by_id(_project_id: &str) -> Option<Project> {
     let project = Project {
         project_name: "test".to_string(),
         project_id: "test".to_string(),
@@ -27,7 +27,7 @@ pub async fn load_project_by_id(project_id: &str) -> Option<Project> {
         max_rpd: Some(1000),
         allowed_origins: vec!["http://localhost:3000".to_string()],
     };
-    return Some(project);
+    Some(project)
 }
 
 pub fn add(left: usize, right: usize) -> usize {
@@ -35,9 +35,9 @@ pub fn add(left: usize, right: usize) -> usize {
 }
 
 pub fn parse_basic_credentials(authorization: &str) -> Option<(String, String)> {
-    let mut parts = authorization.splitn(2, ' ');
-    let scheme = parts.next()?;
-    let credentials = parts.next()?;
+    let (scheme, credentials) = authorization.split_once(' ')?;
+    
+    
 
     if scheme != "Basic" {
         return None;
@@ -57,7 +57,7 @@ pub async fn verify_credentials(project_id: &str, project_secret: &str) -> Optio
     let project = load_project_by_id(project_id).await?;
     // load project by id and verify secret
     let is_valid = bcrypt::verify(project_secret, &project.secret_hash).unwrap();
-    return Some(is_valid);
+    Some(is_valid)
 }
 
 #[cfg(test)]

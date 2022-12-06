@@ -7,20 +7,19 @@
 
 use axum::{
     extract::State,
-    http::{uri::Uri, Request, Response},
-    routing::{any, get},
+    http::{Request, Response},
+    routing::{any},
     Router,
 };
 use axum_extra::routing::{
-    RouterExt, // for `Router::typed_get`
     TypedPath,
 };
-use hyper::{client::HttpConnector, header::ToStrError, Body, Client};
-use hyper_native_tls::NativeTlsClient;
+use hyper::{client::HttpConnector, Body, Client};
+
 use hyper_tls::HttpsConnector;
 use serde::Deserialize;
 use std::net::SocketAddr;
-use tracing_subscriber::fmt::format;
+
 
 #[tokio::main]
 async fn main() {
@@ -58,7 +57,7 @@ struct BareNetworkProxyHandler {
 async fn handler(
     params: BareNetworkProxyHandler,
     State(client): State<Client<HttpsConnector<HttpConnector>>>,
-    mut req: Request<Body>,
+    req: Request<Body>,
 ) -> Response<Body> {
     let path = req.uri().path();
     let path_query = req
