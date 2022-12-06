@@ -1,3 +1,3 @@
 # Interchain Reverse Proxy 
 
-Reverse proxy for Tendermint REST & RPC Endpoints
+Reverse proxy for [Kennel](../kennel) Tendermint REST & RPC Endpoints
