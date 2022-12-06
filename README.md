@@ -1,3 +1,3 @@
-# Interchain Reverse Proxy 
+# Whistle
 
-Reverse proxy for [Kennel](https://github.com/Pupmos/kennel) Tendermint REST & RPC Endpoints
+Interchain reverse proxy for [Kennel](https://github.com/Pupmos/kennel) Tendermint REST & RPC Endpoints
